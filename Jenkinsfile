@@ -1,9 +1,15 @@
 pipeline {
     agent any
+    tools
+    {
+        maven 'Maven3'
+    }
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -f hello-app/pom.xml -B -DskipTests clean package'
+                withMaven{
+                    sh 'mvn -f hello-app/pom.xml -B -DskipTests clean package'
+                }
             }
             post {
                 success {
