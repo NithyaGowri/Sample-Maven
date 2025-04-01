@@ -25,6 +25,7 @@ pipeline {
               withSonarQubeEnv(credentialsId: 'sonar-key', installationName: 'sonar-scan') {
                 sh "${scannerHome}/bin/sonar-scanner"
               }
+            }
             
         }
         stage('Test') {
