@@ -16,6 +16,17 @@ pipeline {
                 }
             }
         }
+        stage('Sonar Analysis'){
+            
+                environment {
+                scannerHome = tool 'sonar-scan-server';
+            }
+            steps {
+              withSonarQubeEnv(credentialsId: 'sonar-key', installationName: 'sonar-scan') {
+                sh "${scannerHome}/bin/sonar-scanner"
+              }
+            
+        }
         stage('Test') {
             steps {
                 sh 'mvn -f hello-app/pom.xml test'
